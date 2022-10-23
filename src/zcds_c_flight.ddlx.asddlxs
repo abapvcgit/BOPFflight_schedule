@@ -1,0 +1,100 @@
+@Metadata.layer: #CORE
+
+
+@UI:{
+       headerInfo:{
+                typeName: 'Flight',
+                typeNamePlural: 'Flights',
+                title:{
+                        type: #STANDARD,
+                        label: 'Connections',
+                        value: 'Fldate'
+                },
+                description:{
+                        type: #STANDARD,
+                        value: 'Price'
+                }
+       }
+}
+
+annotate view zcds_c_flight with
+{
+  @UI.facet: [
+         {
+           label: 'Flight Information',
+           id : 'actfli',
+           purpose: #STANDARD,
+           type : #COLLECTION,
+           position: 1
+       },
+
+       { type: #FIELDGROUP_REFERENCE ,
+             label : 'General Information',
+             parentId: 'actfli',
+             id: 'connID' ,
+             position: 1,
+             targetQualifier: 'generalinfo' },
+
+        { type: #FIELDGROUP_REFERENCE ,
+             label : 'Economy Class',
+             parentId: 'actfli',
+             id: 'economy' ,
+             position: 2,
+             targetQualifier: 'economy' },
+         { type: #FIELDGROUP_REFERENCE ,
+         label : 'Business Class',
+         parentId: 'actfli',
+         id: 'business' ,
+         position: 3,
+         targetQualifier: 'business' },
+
+        { type: #FIELDGROUP_REFERENCE ,
+         label : 'First Class',
+         parentId: 'actfli',
+         id: 'first' ,
+         position: 4,
+         targetQualifier: 'first' }
+    ]
+    
+  @UI.lineItem: [{position: 1 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'generalinfo', position: 1 ,importance: #HIGH, label: 'Flight Date'}]
+  Fldate;
+
+  @UI.fieldGroup: [{ qualifier: 'generalinfo', position: 2 ,importance: #HIGH, label: 'Airfare'}]
+  @UI.lineItem: [{position: 2 }]
+  Price;
+
+
+  @UI.lineItem: [{position: 3 }]
+  @UI.fieldGroup: [{ qualifier: 'generalinfo', position: 3 ,importance: #HIGH, label: 'Plane Type'}]
+  Planetype;
+
+  @UI.lineItem: [{position: 4 }]
+  @UI.fieldGroup: [{ qualifier: 'economy', position: 1 ,importance: #HIGH, label: 'Capacity in economy class'}]
+  Seatsmax;
+
+  @UI.lineItem: [{position: 5 }]
+  @UI.fieldGroup: [{ qualifier: 'economy', position: 2 ,importance: #HIGH, label: 'Occupied economy class'}]
+  Seatsocc;
+
+  @UI.lineItem: [{position: 6 }]
+  @UI.fieldGroup: [{ qualifier: 'generalinfo', position: 4 ,importance: #HIGH, label: 'Booking total'}]
+  Paymentsum;
+
+  @UI.lineItem: [{position: 7 }]
+  @UI.fieldGroup: [{ qualifier: 'business', position: 1 ,importance: #HIGH, label: 'Capacity business class'}]
+  Seatsmax_B;
+
+  @UI.lineItem: [{position: 8 }]
+  @UI.fieldGroup: [{ qualifier: 'business', position: 2 ,importance: #HIGH, label: 'Occupied business class'}]
+  Seatsocc_B;
+
+  @UI.lineItem: [{position: 9 }]
+  @UI.fieldGroup: [{ qualifier: 'first', position: 1 ,importance: #HIGH, label: 'Capacity in first class'}]
+  Seatsmax_F;
+
+  @UI.lineItem: [{position: 10 }]
+  @UI.fieldGroup: [{ qualifier: 'first', position: 2 ,importance: #HIGH, label: 'Occupied in first class'}]
+  Seatsocc_F;
+
+}
